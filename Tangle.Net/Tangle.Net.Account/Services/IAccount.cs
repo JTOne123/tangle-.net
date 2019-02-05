@@ -61,6 +61,6 @@
     /// </returns>
     Condition AllocateDepositRequest(string accountId);
 
-    void UpdateSettings(Settings settings);
+    void UpdateSettings(AccountSettings accountSettings);
   }
 }
