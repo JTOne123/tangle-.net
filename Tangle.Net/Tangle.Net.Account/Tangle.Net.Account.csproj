@@ -64,6 +64,7 @@
     <Compile Include="Services\IAccount.cs" />
     <Compile Include="Services\IAccountPlugin.cs" />
     <Compile Include="Services\IAccountStore.cs" />
+    <Compile Include="Services\Memory\InMemoryAccount.cs" />
     <Compile Include="Services\Memory\InMemorySeedProvider.cs" />
     <Compile Include="Services\ISeedProvider.cs" />
     <Compile Include="Services\ITimeSource.cs" />
