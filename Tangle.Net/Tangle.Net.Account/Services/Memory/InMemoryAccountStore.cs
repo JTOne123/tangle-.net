@@ -95,7 +95,7 @@
     }
 
     /// <inheritdoc />
-    public void RemoveDepositRequest(string accountId, long keyIndex)
+    public void RemoveDepositRequest(string accountId, int keyIndex)
     {
       var account = this.GetAccountState(accountId);
       account.DepositRequests.RemoveAll(d => d.KeyIndex == keyIndex);
@@ -116,7 +116,7 @@
     }
 
     /// <inheritdoc />
-    public void WriteIndex(string accountId, long newKeyIndex)
+    public void WriteIndex(string accountId, int newKeyIndex)
     {
       var account = this.GetAccountState(accountId);
       account.LastUsedKeyIndex = newKeyIndex;

@@ -2,12 +2,19 @@
 {
   using System;
 
-  public abstract class DepositRequest
+  public class DepositRequest
   {
-    public long ExpectedAmount { get; set; }
+    public DepositRequest(DateTime timeoutAt, long expectedAmount = 0, bool multiUse = false)
+    {
+      this.TimeoutAt = timeoutAt;
+      this.ExpectedAmount = expectedAmount;
+      this.MultiUse = multiUse;
+    }
 
-    public bool MultiUse { get; set; }
+    public long ExpectedAmount { get; }
 
-    public DateTime TimeoutAt { get; set; }
+    public bool MultiUse { get; }
+
+    public DateTime TimeoutAt { get; }
   }
 }

@@ -7,10 +7,10 @@
 
   public class Condition : DepositRequest
   {
-    public Condition(Address address, DateTime timeoutAt)
+    public Condition(Address address, DateTime timeoutAt, long expectedAmount = 0, bool multiUse = false)
+      : base(timeoutAt, expectedAmount, multiUse)
     {
       this.Address = address;
-      this.TimeoutAt = timeoutAt;
     }
 
     public Address Address { get; }
@@ -35,10 +35,11 @@
         throw new Exception("Invalid query parameters. Please provide t (timeoutAt), m (MultiUse) and am (ExpectedAmount)");
       }
 
-      return new Condition(new Address(uri.Host.ToUpper()), UnixTimeStampToDateTime(int.Parse(queryParameters.Get("t"))))
-               {
-                 ExpectedAmount = long.Parse(queryParameters.Get("am")), MultiUse = bool.Parse(queryParameters.Get("m"))
-               };
+      return new Condition(
+        new Address(uri.Host.ToUpper()),
+        UnixTimeStampToDateTime(int.Parse(queryParameters.Get("t"))),
+        long.Parse(queryParameters.Get("am")),
+        bool.Parse(queryParameters.Get("m")));
     }
 
     public string ToMagnetLink()

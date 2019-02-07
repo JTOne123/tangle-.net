@@ -24,10 +24,9 @@
     public void TestMagnetLinkCreation()
     {
       var condition = new Condition(
-                        new Address("SSFQNEKDAMMAJSTMLRPIHSKZMHQTMYITPPLUWLOPYKS9K9YDGJZKTNQHJVD9YGZFOVZKAZHDIDMFWJGUYFZOTSAS9C"),
-                        new DateTime(2019, 12, 12, 12, 12, 12)) {
-                                                                   ExpectedAmount = 10, 
-                                                                };
+        new Address("SSFQNEKDAMMAJSTMLRPIHSKZMHQTMYITPPLUWLOPYKS9K9YDGJZKTNQHJVD9YGZFOVZKAZHDIDMFWJGUYFZOTSAS9C"),
+        new DateTime(2019, 12, 12, 12, 12, 12),
+        10);
 
       Assert.AreEqual(
         "iota://SSFQNEKDAMMAJSTMLRPIHSKZMHQTMYITPPLUWLOPYKS9K9YDGJZKTNQHJVD9YGZFOVZKAZHDIDMFWJGUYFZOTSAS9C/?t=1576152732&m=false&am=10",
@@ -52,10 +51,9 @@
     public void TestTransferCreation()
     {
       var condition = new Condition(
-                        new Address("SSFQNEKDAMMAJSTMLRPIHSKZMHQTMYITPPLUWLOPYKS9K9YDGJZKTNQHJVD9YGZFOVZKAZHDIDMFWJGUYFZOTSAS9C"),
-                        new DateTime(2019, 12, 12, 12, 12, 12)) {
-                                                                   ExpectedAmount = 10, 
-                                                                };
+        new Address("SSFQNEKDAMMAJSTMLRPIHSKZMHQTMYITPPLUWLOPYKS9K9YDGJZKTNQHJVD9YGZFOVZKAZHDIDMFWJGUYFZOTSAS9C"),
+        new DateTime(2019, 12, 12, 12, 12, 12),
+        10);
 
       var transfer = condition.ToTransfer();
 

@@ -35,13 +35,13 @@
     /// <summary>
     /// Allocates a new CDR and increments the latest used key index in the store.
     /// </summary>
-    /// <param name="accountId">
-    /// The id of the account.
+    /// <param name="request">
+    /// The deposit request.
     /// </param>
     /// <returns>
     /// Returns an object describing the conditions around the deposit address.
     /// </returns>
-    Condition AllocateDepositRequest(string accountId);
+    Condition AllocateDepositRequest(DepositRequest request);
 
     /// <summary>
     /// Runs input selection, allocates a special CDR for the remainder address if needed,

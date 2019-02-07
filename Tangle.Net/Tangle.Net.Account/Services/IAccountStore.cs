@@ -23,10 +23,10 @@
 
     void RemoveAccount(string accountId);
 
-    void RemoveDepositRequest(string accountId, long keyIndex);
+    void RemoveDepositRequest(string accountId, int keyIndex);
 
     void RemovePendingTransfers(string accountId, Hash tailHash);
 
-    void WriteIndex(string accountId, long newKeyIndex);
+    void WriteIndex(string accountId, int newKeyIndex);
   }
 }

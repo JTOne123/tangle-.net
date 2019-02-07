@@ -12,7 +12,7 @@
 
     public List<StoredDepositRequest> DepositRequests { get; set; }
 
-    public long LastUsedKeyIndex { get; set; }
+    public int LastUsedKeyIndex { get; set; }
 
     public List<PendingTransfer> PendingTransfers { get; set; }
   }

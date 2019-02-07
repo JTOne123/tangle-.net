@@ -3,14 +3,16 @@
   using System.Collections.Generic;
 
   using Tangle.Net.Account.Entity;
+  using Tangle.Net.Cryptography;
   using Tangle.Net.Entity;
 
   public class Account : IAccount
   {
-    public Account(string id, AccountSettings settings)
+    public Account(string id, AccountSettings settings, IAddressGenerator addressGenerator)
     {
       this.Id = id;
       this.Settings = settings;
+      this.AddressGenerator = addressGenerator;
     }
 
     /// <inheritdoc />
@@ -38,10 +40,23 @@
     /// <inheritdoc />
     public long TotalBalance { get; }
 
+    private IAddressGenerator AddressGenerator { get; }
+
     /// <inheritdoc />
-    public Condition AllocateDepositRequest(string accountId)
+    public Condition AllocateDepositRequest(DepositRequest request)
     {
-      return null;
+      // TODO: request validation
+      var state = this.Settings.Store.LoadAccount(this.Id);
+
+      var index = state.LastUsedKeyIndex + 1;
+      var address = this.AddressGenerator.GetAddress(this.Settings.SeedProvider.Seed, this.Settings.SecurityLevel, index);
+
+      this.Settings.Store.WriteIndex(this.Id, index);
+      this.Settings.Store.AddDepositRequest(
+        this.Id,
+        new StoredDepositRequest(index, this.Settings.SecurityLevel, request.TimeoutAt, request.ExpectedAmount, request.MultiUse));
+
+      return new Condition(address, request.TimeoutAt, request.ExpectedAmount, request.MultiUse);
     }
 
     /// <inheritdoc />
