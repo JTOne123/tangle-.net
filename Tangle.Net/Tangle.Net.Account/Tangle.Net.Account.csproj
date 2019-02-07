@@ -57,6 +57,7 @@
     <Compile Include="Entity\AccountState.cs" />
     <Compile Include="Entity\Condition.cs" />
     <Compile Include="Entity\DepositRequest.cs" />
+    <Compile Include="Entity\InputSelection.cs" />
     <Compile Include="Entity\PendingTransfer.cs" />
     <Compile Include="Entity\AccountSettings.cs" />
     <Compile Include="Entity\StoredDepositRequest.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Services\IAccountPlugin.cs" />
     <Compile Include="Services\IAccountStore.cs" />
     <Compile Include="Services\Account.cs" />
+    <Compile Include="Services\IInputSelector.cs" />
     <Compile Include="Services\Memory\InMemoryAccountStore.cs" />
     <Compile Include="Services\Memory\InMemorySeedProvider.cs" />
     <Compile Include="Services\ISeedProvider.cs" />

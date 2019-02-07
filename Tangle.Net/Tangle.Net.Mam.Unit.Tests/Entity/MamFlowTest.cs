@@ -225,7 +225,7 @@
       bundle.Finalize();
       bundle.Sign();
 
-      await iotaRepository.SendTrytesAsync(bundle.Transactions, 27, 14);
+      await iotaRepository.SendTrytesAsync(bundle.Transactions, 2, 14);
 
       var subcriptionFactory = new MamChannelSubscriptionFactory(iotaRepository, CurlMamParser.Default, mask);
       var subscription = subcriptionFactory.Create(message.Root, Mode.Restricted, channelKey.Value);

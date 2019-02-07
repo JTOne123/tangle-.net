@@ -11,6 +11,8 @@
   {
     public int Depth { get; set; }
 
+    public IInputSelector InputSelector { get; set; }
+
     public IIotaRepository IotaRepository { get; set; }
 
     public int MinimumWeightMagnitude { get; set; }
@@ -27,6 +29,7 @@
 
     public static AccountSettings GetDefault(Seed seed, IIotaRepository iotaRepository)
     {
+      // TODO: Add default InputSelector
       return new AccountSettings
                {
                  Depth = 3,

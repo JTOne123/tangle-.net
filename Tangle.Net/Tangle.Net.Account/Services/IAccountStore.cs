@@ -9,7 +9,7 @@
   {
     void AddDepositRequest(string accountId, StoredDepositRequest depositRequest);
 
-    void AddPendingTransfer(string accountId, Hash tailHash, Bundle bundle, List<long> usedKeyIndices);
+    void AddPendingTransfer(string accountId, Hash tailHash, Bundle bundle, List<int> usedKeyIndices);
 
     void AddTailHash(string accountId, Hash originTailHash, Hash newTailHash);
 

@@ -25,7 +25,7 @@
     }
 
     /// <inheritdoc />
-    public void AddPendingTransfer(string accountId, Hash tailHash, Bundle bundle, List<long> usedKeyIndices)
+    public void AddPendingTransfer(string accountId, Hash tailHash, Bundle bundle, List<int> usedKeyIndices)
     {
       var account = this.GetAccountState(accountId);
 

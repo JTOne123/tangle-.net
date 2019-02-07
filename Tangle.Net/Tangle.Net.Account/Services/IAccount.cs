@@ -51,7 +51,10 @@
     /// <param name="recipients">
     /// Recipient is a bundle.Transfer but with a nicer name.
     /// </param>
-    void Send(List<Transfer> recipients);
+    /// <returns>
+    /// The sent bundle
+    /// </returns>
+    Bundle Send(List<Transfer> recipients);
 
     /// <summary>
     /// Shuts down all plugins and flags the account as “non-running”.
