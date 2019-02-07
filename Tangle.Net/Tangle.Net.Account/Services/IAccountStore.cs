@@ -7,11 +7,11 @@
 
   public interface IAccountStore
   {
-    void AddDepositRequest(string accountId, long keyIndex, StoredDepositRequest depositRequest);
+    void AddDepositRequest(string accountId, StoredDepositRequest depositRequest);
 
-    void AddPendingTransfer(string accountId, Hash tailTransactionHash, Bundle bundle, List<long> usedKeyIndices);
+    void AddPendingTransfer(string accountId, Hash tailHash, Bundle bundle, List<long> usedKeyIndices);
 
-    void AddTailHash(string accountId, Hash originTailTransactionHash, Hash newTailTransactionHash);
+    void AddTailHash(string accountId, Hash originTailHash, Hash newTailHash);
 
     List<StoredDepositRequest> GetDepositRequests(string accountId);
 
@@ -25,7 +25,7 @@
 
     void RemoveDepositRequest(string accountId, long keyIndex);
 
-    List<StoredDepositRequest> RemovePendingTransfers(string accountId, Hash tailTransactionHash);
+    void RemovePendingTransfers(string accountId, Hash tailHash);
 
     void WriteIndex(string accountId, long newKeyIndex);
   }

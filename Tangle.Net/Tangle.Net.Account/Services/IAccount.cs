@@ -8,19 +8,14 @@
   public interface IAccount
   {
     /// <summary>
-    /// Returns the account’s unique identifier which is a sha256 hash of the account’s seed
-    /// </summary>
-    string Id { get; }
-
-    /// <summary>
     /// Runs the input selection with the stored CDRs in order to determine the available balance for funding transfers.
     /// </summary>
     long AvailableBalance { get; }
 
     /// <summary>
-    /// Uses all stored CDRs to determine the current total balance.
+    /// Returns the account’s unique identifier which is a sha256 hash of the account’s seed
     /// </summary>
-    long TotalBalance { get; }
+    string Id { get; }
 
     /// <summary>
     /// Checks whether the state of the account is new.
@@ -28,17 +23,25 @@
     /// </summary>
     bool IsNew { get; }
 
-    /// <summary>
-    /// Loads the initial account state and starts all given plugins. Also flags the account as “running”.
-    /// Executing any other methods before calling Start() will return an error. 
-    /// </summary>
-    void Start();
+    bool IsRunning { get; set; }
+
+    AccountSettings Settings { get; set; }
 
     /// <summary>
-    /// Shuts down all plugins and flags the account as “non-running”.
-    /// Executing any method call after Shutdown() will return an error.
+    /// Uses all stored CDRs to determine the current total balance.
     /// </summary>
-    void Shutdown();
+    long TotalBalance { get; }
+
+    /// <summary>
+    /// Allocates a new CDR and increments the latest used key index in the store.
+    /// </summary>
+    /// <param name="accountId">
+    /// The id of the account.
+    /// </param>
+    /// <returns>
+    /// Returns an object describing the conditions around the deposit address.
+    /// </returns>
+    Condition AllocateDepositRequest(string accountId);
 
     /// <summary>
     /// Runs input selection, allocates a special CDR for the remainder address if needed,
@@ -51,15 +54,16 @@
     void Send(List<Transfer> recipients);
 
     /// <summary>
-    /// Allocates a new CDR and increments the latest used key index in the store.
+    /// Shuts down all plugins and flags the account as “non-running”.
+    /// Executing any method call after Shutdown() will return an error.
     /// </summary>
-    /// <param name="accountId">
-    /// The id of the account.
-    /// </param>
-    /// <returns>
-    /// Returns an object describing the conditions around the deposit address.
-    /// </returns>
-    Condition AllocateDepositRequest(string accountId);
+    void Shutdown();
+
+    /// <summary>
+    /// Loads the initial account state and starts all given plugins. Also flags the account as “running”.
+    /// Executing any other methods before calling Start() will return an error. 
+    /// </summary>
+    void Start();
 
     void UpdateSettings(AccountSettings accountSettings);
   }

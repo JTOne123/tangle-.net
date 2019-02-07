@@ -4,7 +4,13 @@
 
   public class AccountState
   {
-    public List<Condition> DepositRequests { get; set; }
+    public AccountState()
+    {
+      this.DepositRequests = new List<StoredDepositRequest>();
+      this.PendingTransfers = new List<PendingTransfer>();
+    }
+
+    public List<StoredDepositRequest> DepositRequests { get; set; }
 
     public long LastUsedKeyIndex { get; set; }
 

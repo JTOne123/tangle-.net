@@ -43,9 +43,18 @@
 
     public string ToMagnetLink()
     {
-      var unixTimestamp = (int)this.TimeoutAt.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
       return
-        $"iota://{this.Address.WithChecksum().Value}{this.Address.Checksum.Value}/?t={unixTimestamp}&m={this.MultiUse.ToString().ToLower()}&am={this.ExpectedAmount}";
+        $"iota://{this.Address.WithChecksum().Value}{this.Address.Checksum.Value}/?t={DateTimeToUnixTimeStamp(this.TimeoutAt)}&m={this.MultiUse.ToString().ToLower()}&am={this.ExpectedAmount}";
+    }
+
+    public Transfer ToTransfer()
+    {
+      return new Transfer { Address = this.Address, ValueToTransfer = this.ExpectedAmount };
+    }
+
+    private static int DateTimeToUnixTimeStamp(DateTime date)
+    {
+      return (int)date.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
     }
 
     private static DateTime UnixTimeStampToDateTime(int unixTimeStamp)
