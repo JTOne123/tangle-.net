@@ -7,7 +7,6 @@
   using Tangle.Net.Account.Entity;
   using Tangle.Net.Cryptography;
   using Tangle.Net.Entity;
-  using Tangle.Net.Repository.Client;
 
   public class Account : IAccount
   {
@@ -17,6 +16,16 @@
       this.Settings = settings;
       this.AddressGenerator = addressGenerator;
     }
+
+    public event EventHandler PrepareTransfer;
+
+    public event EventHandler GettingTransactionsToApprove;
+
+    public event EventHandler AttachingToTangle;
+
+    public event EventHandler SentTransfer;
+
+    public event EventHandler DoingInputSelection;
 
     /// <inheritdoc />
     public long AvailableBalance => this.Settings.InputSelector.SelectInputs(this, 0, true).InputValueSum;
@@ -76,6 +85,7 @@
         var transferSum = recipients.Sum(r => r.ValueToTransfer);
         if (transferSum > 0)
         {
+          this.DoingInputSelection?.Invoke(this, EventArgs.Empty);
           var inputSelection = this.Settings.InputSelector.SelectInputs(this, transferSum, false);
           if (inputSelection.InputValueSum > transferSum)
           {
@@ -90,7 +100,7 @@
         var bundle = new Bundle();
         recipients.ForEach(r => bundle.AddTransfer(r));
 
-        // TODO: Emit PrepareTransfer event
+        this.PrepareTransfer?.Invoke(this, EventArgs.Empty);
         this.Settings.IotaRepository.PrepareTransfer(
           this.Settings.SeedProvider.Seed,
           bundle,
@@ -98,10 +108,10 @@
           remainderAddress,
           inputAddresses);
 
-        // TODO: Emit GettingTransactionsToApprove event
+        this.GettingTransactionsToApprove?.Invoke(this, EventArgs.Empty);
         var tips = this.Settings.IotaRepository.GetTransactionsToApprove(this.Settings.Depth);
 
-        // TODO: Emit AttachToTangle event
+        this.AttachingToTangle?.Invoke(this, EventArgs.Empty);
         var transactionTrytes = this.Settings.IotaRepository.AttachToTangle(
           tips.BranchTransaction,
           tips.TrunkTransaction,
@@ -114,8 +124,8 @@
 
         this.Settings.IotaRepository.BroadcastAndStoreTransactions(transactionTrytes);
 
-        // TODO: Emit SentTransfer event
-        return bundle;
+        this.SentTransfer?.Invoke(this, EventArgs.Empty);
+        return bundleToSend;
       }
       catch (Exception exception)
       {
