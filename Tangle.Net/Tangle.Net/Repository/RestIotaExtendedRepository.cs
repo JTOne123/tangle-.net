@@ -195,7 +195,7 @@
       var currentIndex = start;
       while (true)
       {
-        var address = this.AddressGenerator.GetAddress(seed, securityLevel, currentIndex);
+        var address = await this.AddressGenerator.GetAddressAsync(seed, securityLevel, currentIndex);
         var transactions = await this.FindTransactionsByAddressesAsync(new List<Address> { address });
 
         if (transactions.Hashes.Count > 0)

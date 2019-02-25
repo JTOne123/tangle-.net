@@ -15,6 +15,8 @@
     /// </summary>
     public const int Length = 81;
 
+    private Checksum checksum;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Address"/> class.
     /// </summary>
@@ -60,7 +62,12 @@
     /// <summary>
     /// Gets the checksum.
     /// </summary>
-    public Checksum Checksum { get; private set; }
+    public Checksum Checksum
+    {
+      get => this.checksum ?? (this.checksum = Checksum.FromAddress(this));
+
+      private set => this.checksum = value;
+    }
 
     /// <summary>
     /// Gets or sets the key index.
@@ -125,13 +132,9 @@
     /// <returns>
     /// The <see cref="Address"/>.
     /// </returns>
+    [Obsolete("Will be replaced in next major release. Access checksum directly.")]
     public Address WithChecksum()
     {
-      if (this.Checksum == null)
-      {
-        this.Checksum = Checksum.FromAddress(this);
-      }
-
       return this;
     }
   }

@@ -7,6 +7,7 @@
 
   using RestSharp;
 
+  using Tangle.Net.Cryptography;
   using Tangle.Net.Entity;
   using Tangle.Net.Examples.Examples;
   using Tangle.Net.Examples.Examples.Api;

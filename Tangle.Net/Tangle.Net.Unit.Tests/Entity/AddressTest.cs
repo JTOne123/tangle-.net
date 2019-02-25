@@ -21,21 +21,9 @@
     public void TestAddressDoesNotIncludeChecksumShouldGenerateCorrectChecksum()
     {
       var address = new Address("UYEEERFQYTPFAHIPXDQAQYWYMSMCLMGBTYAXLWFRFFWPYFOICOVLK9A9VYNCKK9TQUNBTARCEQXJHD9VY");
-      var addressWithChecksum = address.WithChecksum();
 
-      Assert.AreEqual("XOEDEOMRC", addressWithChecksum.Checksum.Value);
-      Assert.AreEqual("UYEEERFQYTPFAHIPXDQAQYWYMSMCLMGBTYAXLWFRFFWPYFOICOVLK9A9VYNCKK9TQUNBTARCEQXJHD9VYXOEDEOMRC", addressWithChecksum.ToTrytes());
-    }
-
-    /// <summary>
-    /// The test address does not include checksum should have invalid checksum.
-    /// </summary>
-    [TestMethod]
-    public void TestAddressDoesNotIncludeChecksumShouldHaveInvalidChecksum()
-    {
-      var address = new Address("UYEEERFQYTPFAHIPXDQAQYWYMSMCLMGBTYAXLWFRFFWPYFOICOVLK9A9VYNCKK9TQUNBTARCEQXJHD9VY");
-
-      Assert.IsFalse(address.HasValidChecksum());
+      Assert.AreEqual("XOEDEOMRC", address.Checksum.Value);
+      Assert.AreEqual("UYEEERFQYTPFAHIPXDQAQYWYMSMCLMGBTYAXLWFRFFWPYFOICOVLK9A9VYNCKK9TQUNBTARCEQXJHD9VYXOEDEOMRC", address.ToTrytes());
     }
 
     /// <summary>
