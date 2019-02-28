@@ -7,7 +7,7 @@
 
   public class Condition : DepositRequest
   {
-    public Condition(Address address, DateTime timeoutAt, long expectedAmount = 0, bool multiUse = false)
+    public Condition(Address address, DateTime timeoutAt, long? expectedAmount = 0, bool multiUse = false)
       : base(timeoutAt, expectedAmount, multiUse)
     {
       this.Address = address;
@@ -50,7 +50,7 @@
 
     public Transfer ToTransfer()
     {
-      return new Transfer { Address = this.Address, ValueToTransfer = this.ExpectedAmount };
+      return new Transfer { Address = this.Address, ValueToTransfer = this.ExpectedAmount.HasValue ? this.ExpectedAmount.Value : 0 };
     }
 
     private static int DateTimeToUnixTimeStamp(DateTime date)

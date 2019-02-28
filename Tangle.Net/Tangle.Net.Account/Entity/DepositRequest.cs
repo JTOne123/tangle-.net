@@ -4,14 +4,14 @@
 
   public class DepositRequest
   {
-    public DepositRequest(DateTime timeoutAt, long expectedAmount = 0, bool multiUse = false)
+    public DepositRequest(DateTime timeoutAt, long? expectedAmount = 0, bool multiUse = false)
     {
       this.TimeoutAt = timeoutAt;
       this.ExpectedAmount = expectedAmount;
       this.MultiUse = multiUse;
     }
 
-    public long ExpectedAmount { get; }
+    public long? ExpectedAmount { get; }
 
     public bool MultiUse { get; }
 

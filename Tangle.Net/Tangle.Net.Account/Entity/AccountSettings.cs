@@ -4,11 +4,14 @@
 
   using Tangle.Net.Account.Services;
   using Tangle.Net.Account.Services.Memory;
+  using Tangle.Net.Cryptography;
   using Tangle.Net.Entity;
   using Tangle.Net.Repository;
 
   public class AccountSettings
   {
+    public IAddressGenerator AddressGenerator { get; set; }
+
     public int Depth { get; set; }
 
     public IInputSelector InputSelector { get; set; }
@@ -39,7 +42,9 @@
                  SecurityLevel = Cryptography.SecurityLevel.Medium,
                  Store = new InMemoryAccountStore(),
                  SeedProvider = new InMemorySeedProvider(seed),
-                 TimeSource = new UtcTimeSource()
+                 TimeSource = new UtcTimeSource(),
+                 AddressGenerator = new AddressGenerator(),
+                 InputSelector = new DefaultInputSelector()
                };
     }
   }

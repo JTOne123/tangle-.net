@@ -1,6 +1,8 @@
 ﻿namespace Tangle.Net.Account.Services
 {
+  using System;
   using System.Collections.Generic;
+  using System.Linq;
 
   using Tangle.Net.Account.Entity;
   using Tangle.Net.Account.Exception;
@@ -29,6 +31,52 @@
 
       var primaryAddresses = new List<Address>();
       var secondaryAddresses = new List<Address>();
+
+      foreach (var depositRequest in depositRequests)
+      {
+        if (depositRequest.TimeoutAt == DateTime.MinValue)
+        {
+          var remainderAddress = account.Settings.AddressGenerator.GetAddress(
+            account.Settings.SeedProvider.Seed,
+            depositRequest.SecurityLevel,
+            depositRequest.KeyIndex);
+
+          primaryAddresses.Add(remainderAddress);
+
+          continue;
+        }
+
+        if (depositRequest.TimeoutAt.Ticks < currentTime.Ticks)
+        {
+          secondaryAddresses.Add(
+            account.Settings.AddressGenerator.GetAddress(account.Settings.SeedProvider.Seed, depositRequest.SecurityLevel, depositRequest.KeyIndex));
+
+          continue;
+        }
+
+        if (depositRequest.MultiUse)
+        {
+          if (depositRequest.ExpectedAmount == null)
+          {
+            continue;
+          }
+
+          primaryAddresses.Add(
+            account.Settings.AddressGenerator.GetAddress(account.Settings.SeedProvider.Seed, depositRequest.SecurityLevel, depositRequest.KeyIndex));
+
+          continue;
+        }
+
+        var address = account.Settings.AddressGenerator.GetAddress(
+          account.Settings.SeedProvider.Seed,
+          depositRequest.SecurityLevel,
+          depositRequest.KeyIndex);
+
+        primaryAddresses.Add(address);
+      }
+
+      var balances = account.Settings.IotaRepository.GetBalances(primaryAddresses.Concat(secondaryAddresses).ToList());
+      var balance = balances.Addresses.Sum(a => a.Balance);
 
       return null;
     }
