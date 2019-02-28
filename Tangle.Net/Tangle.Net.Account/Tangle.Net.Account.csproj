@@ -62,7 +62,9 @@
     <Compile Include="Entity\AccountSettings.cs" />
     <Compile Include="Entity\StoredDepositRequest.cs" />
     <Compile Include="Exception\AccountNotFoundException.cs" />
+    <Compile Include="Exception\InsufficientBalanceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DefaultInputSelector.cs" />
     <Compile Include="Services\IAccount.cs" />
     <Compile Include="Services\IAccountPlugin.cs" />
     <Compile Include="Services\IAccountStore.cs" />
