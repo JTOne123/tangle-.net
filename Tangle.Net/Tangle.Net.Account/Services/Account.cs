@@ -17,16 +17,6 @@
       this.AddressGenerator = addressGenerator;
     }
 
-    public event EventHandler PrepareTransfer;
-
-    public event EventHandler GettingTransactionsToApprove;
-
-    public event EventHandler AttachingToTangle;
-
-    public event EventHandler SentTransfer;
-
-    public event EventHandler DoingInputSelection;
-
     /// <inheritdoc />
     public long AvailableBalance => this.Settings.InputSelector.SelectInputs(this, 0, true).InputValueSum;
 
@@ -85,7 +75,7 @@
         var transferSum = recipients.Sum(r => r.ValueToTransfer);
         if (transferSum > 0)
         {
-          this.DoingInputSelection?.Invoke(this, EventArgs.Empty);
+          EventSource.Invoke(EventSource.EvenType.DoingInputSelection, this, EventArgs.Empty);
           var inputSelection = this.Settings.InputSelector.SelectInputs(this, transferSum, false);
           if (inputSelection.InputValueSum > transferSum)
           {
@@ -99,8 +89,8 @@
 
         var bundle = new Bundle();
         recipients.ForEach(r => bundle.AddTransfer(r));
+        EventSource.Invoke(EventSource.EvenType.PrepareTransfer, this, EventArgs.Empty);
 
-        this.PrepareTransfer?.Invoke(this, EventArgs.Empty);
         this.Settings.IotaRepository.PrepareTransfer(
           this.Settings.SeedProvider.Seed,
           bundle,
@@ -108,10 +98,10 @@
           remainderAddress,
           inputAddresses);
 
-        this.GettingTransactionsToApprove?.Invoke(this, EventArgs.Empty);
+        EventSource.Invoke(EventSource.EvenType.GettingTransactionsToApprove, this, EventArgs.Empty);
         var tips = this.Settings.IotaRepository.GetTransactionsToApprove(this.Settings.Depth);
 
-        this.AttachingToTangle?.Invoke(this, EventArgs.Empty);
+        EventSource.Invoke(EventSource.EvenType.AttachingToTangle, this, EventArgs.Empty);
         var transactionTrytes = this.Settings.IotaRepository.AttachToTangle(
           tips.BranchTransaction,
           tips.TrunkTransaction,
@@ -124,7 +114,7 @@
 
         this.Settings.IotaRepository.BroadcastAndStoreTransactions(transactionTrytes);
 
-        this.SentTransfer?.Invoke(this, EventArgs.Empty);
+        EventSource.Invoke(EventSource.EvenType.SentTransfer, this, EventArgs.Empty);
         return bundleToSend;
       }
       catch (Exception exception)
