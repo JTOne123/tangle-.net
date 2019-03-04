@@ -33,6 +33,18 @@
     [TestMethod]
     public void TestSendPopulatesStoreAndEmitsEvents()
     {
+      var attachToTangleEmitted = false;
+      var doingInputSelectionEmitted = false;
+      var gettingTransactionsToApproveEmitted = false;
+      var sentTransferEmitted = false;
+      var prepareTransferEmitted = false;
+
+      EventSource.AttachingToTangle += (sender, args) => { attachToTangleEmitted = true; };
+      EventSource.DoingInputSelection += (sender, args) => { doingInputSelectionEmitted = true; };
+      EventSource.GettingTransactionsToApprove += (sender, args) => { gettingTransactionsToApproveEmitted = true; };
+      EventSource.SentTransfer += (sender, args) => { sentTransferEmitted = true; };
+      EventSource.PrepareTransfer += (sender, args) => { prepareTransferEmitted = true; };
+
       var accountSettings = AccountSettings.GetDefault(Seed.Random(), new InMemoryIotaRepository());
       accountSettings.InputSelector = new InputSelectorStub();
 
@@ -40,19 +52,7 @@
       accountSettings.Store.LoadAccount("123456789");
       accountSettings.Store.WriteIndex("123456789", 2);
 
-      var attachToTangleEmitted = false;
-      var doingInputSelectionEmitted = false;
-      var gettingTransactionsToApproveEmitted = false;
-      var sentTransferEmitted = false;
-      var prepareTransferEmitted = false;
-
       var account = new Account("123456789", accountSettings, new AddressGeneratorStub());
-      EventSource.AttachingToTangle += (sender, args) => { attachToTangleEmitted = true; };
-      EventSource.DoingInputSelection += (sender, args) => { doingInputSelectionEmitted = true; };
-      EventSource.GettingTransactionsToApprove += (sender, args) => { gettingTransactionsToApproveEmitted = true; };
-      EventSource.SentTransfer += (sender, args) => { sentTransferEmitted = true; };
-      EventSource.PrepareTransfer += (sender, args) => { prepareTransferEmitted = true; };
-
       var bundle = account.Send(new List<Transfer> { new Transfer { Address = new Address(Seed.Random().Value), ValueToTransfer = 111 } });
       var state = accountSettings.Store.LoadAccount("123456789");
 
