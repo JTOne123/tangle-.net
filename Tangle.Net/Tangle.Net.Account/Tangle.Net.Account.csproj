@@ -67,6 +67,7 @@
     <Compile Include="Services\DefaultInputSelector.cs" />
     <Compile Include="Services\Events\BundleConfirmedEventArgs.cs" />
     <Compile Include="Services\Events\EventSource.cs" />
+    <Compile Include="Services\Events\TransactionsReceivedEventArgs.cs" />
     <Compile Include="Services\IAccount.cs" />
     <Compile Include="Services\IAccountPlugin.cs" />
     <Compile Include="Services\IAccountStore.cs" />

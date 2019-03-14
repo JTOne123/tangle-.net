@@ -8,6 +8,7 @@
 
   using Tangle.Net.Account.Entity;
   using Tangle.Net.Account.Services;
+  using Tangle.Net.Account.Services.Events;
   using Tangle.Net.Entity;
 
   [TestClass]

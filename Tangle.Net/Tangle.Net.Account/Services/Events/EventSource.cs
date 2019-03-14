@@ -1,10 +1,12 @@
-﻿namespace Tangle.Net.Account.Services
+﻿namespace Tangle.Net.Account.Services.Events
 {
   using System;
 
   public static class EventSource
   {
     public static event EventHandler AttachingToTangle;
+
+    public static event EventHandler BundleConfirmed;
 
     public static event EventHandler DoingInputSelection;
 
@@ -14,7 +16,7 @@
 
     public static event EventHandler SentTransfer;
 
-    public static event EventHandler BundleConfirmed;
+    public static event EventHandler TransactionsReceived;
 
     public enum EvenType
     {
@@ -28,7 +30,9 @@
 
       DoingInputSelection,
 
-      BundleConfirmed
+      BundleConfirmed,
+
+      TransactionsReceived
     }
 
     public static void Invoke(EvenType type, object sender, EventArgs args)
@@ -52,6 +56,9 @@
           break;
         case EvenType.BundleConfirmed:
           BundleConfirmed?.Invoke(sender, args);
+          break;
+        case EvenType.TransactionsReceived:
+          TransactionsReceived?.Invoke(sender, args);
           break;
       }
     }

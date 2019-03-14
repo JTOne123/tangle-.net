@@ -5,6 +5,7 @@
   using System.Linq;
 
   using Tangle.Net.Account.Entity;
+  using Tangle.Net.Account.Services.Events;
   using Tangle.Net.Cryptography;
   using Tangle.Net.Entity;
 
