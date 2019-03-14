@@ -1,10 +1,15 @@
 ﻿namespace Tangle.Net.Account.Services.Plugins
 {
+  using System;
   using System.Collections.Generic;
+  using System.Linq;
+  using System.Runtime.CompilerServices;
   using System.Threading;
   using System.Threading.Tasks;
 
   using Tangle.Net.Account.Entity;
+  using Tangle.Net.Account.Services.Events;
+  using Tangle.Net.Entity;
 
   public class TransferPoller : IAccountPlugin
   {
@@ -32,6 +37,21 @@
 
     private static void CheckOutgoingTransfers(List<PendingTransfer> pendingTransfers, IAccount account)
     {
+      foreach (var transfer in pendingTransfers)
+      {
+        var inclusionStates = account.Settings.IotaRepository.GetLatestInclusion(new List<Hash> { transfer.Tail });
+        var isIncluded = inclusionStates.States.First().Value;
+
+        if (!isIncluded)
+        {
+          continue;
+        }
+
+        var bundle = account.Settings.IotaRepository.GetBundle(transfer.Tail);
+        EventSource.Invoke(EventSource.EvenType.BundleConfirmed, account, new BundleConfirmedEventArgs(bundle));
+
+        account.Settings.Store.RemovePendingTransfers(account.Id, transfer.Tail);
+      }
     }
 
     private static void Poll(IAccount account)

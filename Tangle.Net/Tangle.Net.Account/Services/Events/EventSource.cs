@@ -14,6 +14,8 @@
 
     public static event EventHandler SentTransfer;
 
+    public static event EventHandler BundleConfirmed;
+
     public enum EvenType
     {
       PrepareTransfer,
@@ -24,7 +26,9 @@
 
       SentTransfer,
 
-      DoingInputSelection
+      DoingInputSelection,
+
+      BundleConfirmed
     }
 
     public static void Invoke(EvenType type, object sender, EventArgs args)
@@ -45,6 +49,9 @@
           break;
         case EvenType.DoingInputSelection:
           DoingInputSelection?.Invoke(sender, args);
+          break;
+        case EvenType.BundleConfirmed:
+          BundleConfirmed?.Invoke(sender, args);
           break;
       }
     }

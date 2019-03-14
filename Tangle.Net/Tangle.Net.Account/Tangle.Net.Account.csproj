@@ -65,7 +65,8 @@
     <Compile Include="Exception\InsufficientBalanceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DefaultInputSelector.cs" />
-    <Compile Include="Services\EventSource.cs" />
+    <Compile Include="Services\Events\BundleConfirmedEventArgs.cs" />
+    <Compile Include="Services\Events\EventSource.cs" />
     <Compile Include="Services\IAccount.cs" />
     <Compile Include="Services\IAccountPlugin.cs" />
     <Compile Include="Services\IAccountStore.cs" />
