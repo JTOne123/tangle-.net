@@ -76,7 +76,7 @@
     <Compile Include="Services\ISeedProvider.cs" />
     <Compile Include="Services\ITimeSource.cs" />
     <Compile Include="Services\Plugins\BundlePromoter.cs" />
-    <Compile Include="Services\Plugins\TransactionPoller.cs" />
+    <Compile Include="Services\Plugins\TransferPoller.cs" />
     <Compile Include="Services\UtcTimeSource.cs" />
   </ItemGroup>
   <ItemGroup>

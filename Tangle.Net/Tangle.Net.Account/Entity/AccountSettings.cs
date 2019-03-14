@@ -4,6 +4,7 @@
 
   using Tangle.Net.Account.Services;
   using Tangle.Net.Account.Services.Memory;
+  using Tangle.Net.Account.Services.Plugins;
   using Tangle.Net.Cryptography;
   using Tangle.Net.Entity;
   using Tangle.Net.Repository;
@@ -37,7 +38,7 @@
                  Depth = 3,
                  MinimumWeightMagnitude = 14,
                  IotaRepository = iotaRepository,
-                 Plugins = new List<IAccountPlugin>(),
+                 Plugins = new List<IAccountPlugin> { new BundlePromoter(), new TransferPoller() },
                  SecurityLevel = Cryptography.SecurityLevel.Medium,
                  Store = new InMemoryAccountStore(),
                  SeedProvider = new InMemorySeedProvider(seed),
