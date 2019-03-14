@@ -10,10 +10,10 @@
       this.PendingTransfers = new List<PendingTransfer>();
     }
 
-    public List<StoredDepositRequest> DepositRequests { get; set; }
+    public List<StoredDepositRequest> DepositRequests { get; }
 
     public int LastUsedKeyIndex { get; set; }
 
-    public List<PendingTransfer> PendingTransfers { get; set; }
+    public List<PendingTransfer> PendingTransfers { get; }
   }
 }

@@ -12,13 +12,7 @@
     /// <summary>
     /// Gets the unix seconds timestamp.
     /// </summary>
-    public static long UnixSecondsTimestamp
-    {
-      get
-      {
-        return (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-      }
-    }
+    public static long UnixSecondsTimestamp => (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
 
     #endregion
   }

@@ -32,7 +32,6 @@
 
     public static AccountSettings GetDefault(Seed seed, IIotaRepository iotaRepository)
     {
-      // TODO: Add default InputSelector
       return new AccountSettings
                {
                  Depth = 3,
