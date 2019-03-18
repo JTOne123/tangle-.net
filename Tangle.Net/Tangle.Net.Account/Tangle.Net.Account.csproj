@@ -64,6 +64,7 @@
     <Compile Include="Exception\AccountNotFoundException.cs" />
     <Compile Include="Exception\InsufficientBalanceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountFactory.cs" />
     <Compile Include="Services\DefaultInputSelector.cs" />
     <Compile Include="Services\Events\BundleConfirmedEventArgs.cs" />
     <Compile Include="Services\Events\EventSource.cs" />
