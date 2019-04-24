@@ -17,6 +17,7 @@
         {
           ((TransactionsReceivedEventArgs)args).TransactionHashes.ForEach(h => Console.WriteLine(h.Value));
         };
+      EventSource.BundleConfirmed += (sender, args) => { Console.WriteLine(((BundleConfirmedEventArgs)args).Bundle.Hash.Value); };
 
       var account = AccountFactory.Create(Seed.Random(), Utils.Repository);
       account.Start();
