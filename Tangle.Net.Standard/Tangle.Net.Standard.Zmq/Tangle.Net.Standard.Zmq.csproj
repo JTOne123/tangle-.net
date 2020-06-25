@@ -12,7 +12,15 @@
     <RepositoryUrl>https://github.com/Felandil/tangle-.net</RepositoryUrl>
     <PackageTags>iota csharp zmq</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Compile Include="..\..\Tangle.Net\Tangle.Net.Zmq\Events\IriCacheInformationEventArgs.cs" Link="Events\IriCacheInformationEventArgs.cs" />
